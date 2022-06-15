@@ -122,7 +122,7 @@ const CardsPanelPage = (props) => {
           style={{ textAlign: "center" }}
           className="card-subtitle mb-2 font-bolder"
         >
-          ₪{item.phone}
+          ${item.phone}
         </h6>
       </div>
       {props.userIDCard === props.userIDLoggedIn && IsloggedInRedux === true ? (

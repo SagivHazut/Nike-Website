@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
@@ -31,6 +31,7 @@ const SignupPage = React.lazy(() => import("./page/SignupPage"));
 
 function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
+  const location = useLocation();
 
   const history = useHistory();
 
@@ -59,10 +60,25 @@ function App() {
   return (
     <div>
       <NavBarComponent></NavBarComponent>
-
-      <Box sx={{ display: "flex", flexDirection: "column", py: 1, m: 3 }}>
-        <Box sx={{ ml: "auto" }}>
-          {shoppingCart.length === 0 ? (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          py: 1,
+          m: 3,
+          position: "sticky",
+          top: 0,
+        }}
+      >
+        <Box
+          sx={{
+            ml: "auto",
+            bgcolor: "white",
+            borderRadius: 1,
+            borderColor: "primary.main",
+          }}
+        >
+          {shoppingCart.length === 0 || location.pathname === "/checkout" ? (
             ""
           ) : (
             <ShoppingCartBox
@@ -72,6 +88,7 @@ function App() {
           )}
         </Box>
       </Box>
+
       <ToastContainer />
       <Suspense fallback={<div>loading</div>}>
         <Switch>

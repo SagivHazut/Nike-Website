@@ -8,6 +8,7 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  Grid,
 } from "@mui/material";
 
 const Checkout = (props) => {
@@ -22,78 +23,82 @@ const Checkout = (props) => {
 
   return (
     <div className="checkout">
-      <section className="py-5">
-        <div className="container ">
-          <div className="row">
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                // position: "fixed",
-              }}
-            >
-              <Box sx={{ ml: "auto", width: 400 }}>
-                <Badge badgeContent={shoppingCart.length} color="primary">
-                  <h3>Cart</h3>
-                </Badge>
-                <TableContainer component={Paper}>
+      <section className="py-5 text-center ">
+        <div className="container">
+          <div className="d-flex flex-row-reverse  ">
+            <ul class="list-group mb-10 sticky-top">
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column ",
+                  position: "sticky",
+                  top: 0,
+                }}
+              >
+                <Box sx={{ mt: 1.3, ml: 4, width: 400 }}>
+                  <Badge badgeContent={shoppingCart.length} color="primary">
+                    <h3>Cart</h3>
+                  </Badge>
+                  <TableContainer component={Paper}>
+                    <Table
+                      sx={{ minWidth: 250 }}
+                      size="small"
+                      aria-label="a dense table"
+                    >
+                      <TableBody>
+                        {shoppingCart?.map((product, index) => (
+                          <TableRow
+                            key={index}
+                            sx={{
+                              "&:last-child td, &:last-child th": {
+                                border: 0,
+                              },
+                            }}
+                          >
+                            <TableCell component="th" scope="row">
+                              <img
+                                style={{
+                                  textAlign: "center",
+                                  width: "5vw",
+                                }}
+                                src={product.image}
+                                alt="..."
+                              />
+                            </TableCell>
+                            <TableCell component="th" scope="row">
+                              {product.name}
+                            </TableCell>
+                            <TableCell align="right">
+                              ${product.phone}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
                   <Table
-                    sx={{ minWidth: 250 }}
+                    sx={{ minWidth: 150 }}
                     size="small"
                     aria-label="a dense table"
                   >
                     <TableBody>
-                      {shoppingCart?.map((product, index) => (
-                        <TableRow
-                          key={index}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell component="th" scope="row">
-                            <img
-                              style={{
-                                textAlign: "center",
-                                width: "5vw",
-                              }}
-                              src={product.image}
-                              alt="..."
-                            />
-                          </TableCell>
-                          <TableCell component="th" scope="row">
-                            {product.name}
-                          </TableCell>
-                          <TableCell align="right">${product.phone}</TableCell>
-                        </TableRow>
-                      ))}
+                      <TableRow
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                          bgcolor: "grey.400",
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          Total price
+                        </TableCell>
+                        <TableCell align="right">${itemsPrice}</TableCell>
+                      </TableRow>
                     </TableBody>
                   </Table>
-                </TableContainer>
-                <Table
-                  sx={{ minWidth: 150 }}
-                  size="small"
-                  aria-label="a dense table"
-                >
-                  <TableBody>
-                    <TableRow
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                        bgcolor: "grey.400",
-                      }}
-                    >
-                      <TableCell component="th" scope="row">
-                        Total price
-                      </TableCell>
-                      <TableCell align="right">${itemsPrice}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                </Box>
               </Box>
-            </Box>
-            <div
-              className="col-md-7  order-md-5"
-              style={{ position: "relative" }}
-            >
+            </ul>
+            <div className="col-md-8 order-md-1 ">
               <h4 className="mb-3">Billing address</h4>
               <form className="needs-validation" noValidate>
                 <div className="row">
@@ -138,6 +143,7 @@ const Checkout = (props) => {
                     className="form-control"
                     id="email"
                     placeholder="you@example.com"
+                    required
                   />
                   <div className="invalid-feedback">
                     Please enter a valid email address for shipping updates.
@@ -172,7 +178,6 @@ const Checkout = (props) => {
                     >
                       <option value="">Choose...</option>
                       <option>United States</option>
-                      <option>Israel</option>
                     </select>
                     <div className="invalid-feedback">
                       Please select a valid country.
@@ -187,9 +192,56 @@ const Checkout = (props) => {
                       id="state"
                       required
                     >
-                      <option value="">Choose...</option>
+                      <option value="United States">Choose...</option>
+                      <option>Alabama</option>
+                      <option>Alaska</option>
+                      <option>Arizona</option>
+                      <option>Arkansas</option>
                       <option>California</option>
-                      <option>Israel</option>
+                      <option>Colorado</option>
+                      <option>Connecticut</option>
+                      <option>Delaware</option>
+                      <option>Florida</option>
+                      <option>Georgia</option>
+                      <option>Hawaii</option>
+                      <option>Idaho</option>
+                      <option>Illinois</option>
+                      <option>Indiana</option>
+                      <option>Iowa</option>
+                      <option>Kansas</option>
+                      <option>Kentucky</option>
+                      <option>Louisiana</option>
+                      <option>Maine</option>
+                      <option>Maryland</option>
+                      <option>Massachusetts</option>
+                      <option>Minnesota</option>
+                      <option>Mississippi</option>
+                      <option>Missouri</option>
+                      <option>Montana</option>
+                      <option>Nebraska</option>
+                      <option>Nevada</option>
+                      <option>New Hampshire</option>
+                      <option>New Jersey</option>
+                      <option>New Mexico</option>
+                      <option>New York</option>
+                      <option>North Carolina</option>
+                      <option>North Dakota</option>
+                      <option>Ohio</option>
+                      <option>Oklahoma</option>
+                      <option>Oregon</option>
+                      <option>Pennsylvania</option>
+                      <option>Rhode Island</option>
+                      <option>South Carolina</option>
+                      <option>South Dakota</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Utah</option>
+                      <option>Vermont</option>
+                      <option>Virginia</option>
+                      <option>Washington</option>
+                      <option>West Virginia</option>
+                      <option>Wisconsin</option>
+                      <option>Wyoming</option>
                     </select>
                     <div className="invalid-feedback">
                       Please provide a valid state.

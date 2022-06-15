@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-
 export const NikeStore = (props) => {
   const [filter, setFilter] = useState("");
   const [cardsArr, setCardsArr] = useState([]);
@@ -18,6 +17,7 @@ export const NikeStore = (props) => {
       })
       .catch((err) => {});
   }, []);
+
   let dataSearch = cardsArr.filter((item) => {
     return (
       item.name.toLowerCase() +
@@ -28,7 +28,6 @@ export const NikeStore = (props) => {
 
   return (
     <Fragment>
-     
       <nav className="navbar navbar-expand-lg navbar-light ">
         <div className="container-fluid justify-content-center">
           <ul className="navbar-nav mr-auto">
@@ -78,7 +77,7 @@ export const NikeStore = (props) => {
                 <img src={item.image} className="card-img-top" />
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>
-                  <p className="card-text">{item.phone}</p>
+                  <p className="card-text">${item.phone}</p>
                   <p className="card-text">{item.description}</p>
                 </div>
               </div>
