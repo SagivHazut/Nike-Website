@@ -1,42 +1,81 @@
-import React, { Fragment } from "react";
-import facebook from "../../src/assets/facebook.png";
-import instagram from "../../src/assets/instagram.png";
-import twitter from "../../src/assets/twitter.png";
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
+import AdbIcon from "@mui/icons-material/Adb";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import nikelogo from "../assets/nikelogo.png";
 
-import "./Footer.css";
 const Footer = () => {
   return (
-    <Fragment>
-      <div className="footer">
-        <div className="logos">
-          <a
-            href="https://www.facebook.com/"
-            target="_blank"
-            rel="noopener noreferrer"
+    <AppBar position="static" sx={{ bgcolor: "white", mt: 2 }}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <img
+            src={nikelogo}
+            alt="nikelogo"
+            style={{ width: "30px", height: "30px" }}
+          />{" "}
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "black",
+              textDecoration: "none",
+            }}
           >
-            <img src={facebook} alt="..." />
-          </a>
-          <a
-            href="https://www.instagram.com/"
-            target="_blank"
-            rel="noopener noreferrer"
+            Nike
+          </Typography>
+          <Typography
+            variant="p"
+            component="div"
+            sx={{
+              m: "auto",
+              color: "black",
+              fontSize: "0.8em",
+            }}
           >
-            <img src={instagram} alt="" />
-          </a>
-          <a
-            href="https://twitter.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src={twitter} alt="" />
-          </a>
-        </div>
-        <h1>Nike</h1>
-        <p>
-          © 2022 Copyright: Sagiv Hazut <br />{" "}
-        </p>
-      </div>
-    </Fragment>
+            © 2022 Copyright: Sagiv Hazut{" "}
+          </Typography>
+          <Box sx={{ flexGrow: 0, ml: "auto" }}>
+            <Tooltip title="Facebook">
+              <a href="https://www.facebook.com" target="_blank">
+                <FacebookIcon sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </FacebookIcon>
+              </a>
+            </Tooltip>
+            <Tooltip title="Instagram">
+              <a href="https://www.instagram.com" target="_blank">
+                <InstagramIcon sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </InstagramIcon>
+              </a>
+            </Tooltip>
+            <Tooltip title="Twitter">
+              <a href="https://twitter.com" target="_blank">
+                <TwitterIcon sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp"></Avatar>
+                </TwitterIcon>
+              </a>
+            </Tooltip>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 
