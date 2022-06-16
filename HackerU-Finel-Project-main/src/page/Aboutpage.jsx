@@ -9,11 +9,7 @@ const AboutPage = () => {
     <Fragment>
       <div class="row">
         <div class="col-md-12 text-center">
-          <p class="animate-charcter">
-            <h1> OUR MISSION:</h1> BRING INSPIRATION AND INNOVATION <br />
-            TO EVERY ATHLETE* <br /> IN THE WORLD <br /> *IF YOU HAVE A BODY,
-            YOU ARE AN ATHLETE.
-          </p>
+         
           <div className="topdiv">
             <video className="videoTag" autoPlay loop muted>
               <source src={bgcvideo} type="video/mp4" />

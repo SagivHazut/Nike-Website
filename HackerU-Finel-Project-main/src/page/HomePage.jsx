@@ -105,7 +105,7 @@ const HomePage = () => {
         </div>
       </div>
       <br />
-      <div className="colliction">
+      {/* <div className="colliction">
         <div className="women">
           <p>Women Collection</p>
           <NavLink
@@ -131,7 +131,43 @@ const HomePage = () => {
             <img src={nikelink} alt="" />
           </NavLink>
         </div>
-      </div>
+              </div> */}
+      <div className="imagesfirstrow">
+        <div className="nikecontainer">
+          <img src={womenrun} alt="" className="NikeImage"></img>
+          <div className="overlay">
+            <div className="text">
+              {" "}
+              <p> Women Collation</p>
+              <NavLink
+                className="nav-links"
+                aria-current="page"
+                to="/products"
+                activeClassName="activeLink"
+              >
+                <img src={nikelink} alt="" className="nikeLogoStore" />
+              </NavLink>
+            </div>
+          </div>
+        </div>
+        <div className="nikecontainer">
+          <img src={menrun} alt="" className="NikeImage"></img>
+          <div className="overlay">
+            <div className="text">
+              {" "}
+              <p> Men Collation</p>
+              <NavLink
+                className="nav-links"
+                aria-current="page"
+                to="/products"
+                activeClassName="activeLink"
+              >
+                <img src={nikelink} alt="" className="nikeLogoStore" />
+              </NavLink>
+            </div>
+          </div>
+        </div>{" "}
+      </div>{" "}
     </Fragment>
   );
 };
