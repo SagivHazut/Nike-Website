@@ -4,7 +4,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import CardUpdate from "./CardUpdate";
 import { NikeStore } from "./NikeStore";
-import { CardActions, IconButton, Badge, Button } from "@material-ui/core";
+import { CardActions, IconButton, Button } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
@@ -44,7 +44,7 @@ const WomenStore = (props) => {
   const handleUpdateUser = (id) => {
     let newCardsArr = cardsArr.filter((item) => item._id !== id);
     setCardsArr(newCardsArr);
-    axios.get("/cards/allWomenCards").then(({ data }) => {
+    axios.get("/cards/allCards").then(({ data }) => {
       setCardsArr(data);
       setSelectedUser(null);
     });
@@ -154,10 +154,10 @@ const WomenStore = (props) => {
                       width: "50%",
                       display: "flex",
                     }}
-                    color="inherit"
+                    color="secondary"
                   >
                     <IconButton
-                      color="inherit"
+                      color="secondary"
                       aria-label="Add to Cart"
                       onClick={() => {
                         handleRemoveButtonClick(item);
@@ -168,13 +168,12 @@ const WomenStore = (props) => {
                     <IconButton
                       to="/cart"
                       aria-label="Show cart items"
-                      color="inherit"
+                      color="secondary"
                       className="cart"
                       onClick={() => {
                         handleBuyButtonClick(item);
                       }}
                     >
-                      <Badge badgeContent="" color="inherit"></Badge>
                       <AddShoppingCart />
                     </IconButton>
                   </CardActions>

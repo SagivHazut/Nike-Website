@@ -3,9 +3,7 @@ import "./NavBarComponent.css";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 import nikelogo from "../../assets/nikelogo.png";
-import { AddShoppingCart } from "@material-ui/icons";
-import { FavoriteBorder } from "@material-ui/icons";
-import { IconButton, Badge } from "@material-ui/core";
+
 const NavBarComponent = (props) => {
   const dispatch = useDispatch();
 

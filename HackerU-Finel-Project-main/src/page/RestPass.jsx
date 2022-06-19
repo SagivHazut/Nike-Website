@@ -5,24 +5,29 @@ import "./LoginPage.css";
 import NikeLogo from "../assets/nikelogo.png";
 import { useHistory } from "react-router-dom";
 
-const ResetPass = () => {
+const ResetPass = (props) => {
   const history = useHistory();
+  const [password, setPassword] = useState(props.newPass);
+  const URL = "http://localhost:8181";
 
-  const [password, setPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
 
+  // const handlePasswordTwoChange = (event) => {
+  //   setConfirmPassword(event.target.value);
+  // };
   const handlePasswordOneChange = (event) => {
     setPassword(event.target.value);
   };
-  const handlePasswordTwoChange = (event) => {
-    setPassword(event.target.value);
-  };
+
+  let email = window.location.search.split("email=")[1];
+  let array = `${URL}/updatepass?email=${email}&newPass=${password}`;
 
   const handleUpdate = (ev) => {
     ev.preventDefault();
     axios
-      .post("/users/updatepass", { password })
+      .post(`${array}`, { password })
       .then((res) => {
-        history.push("/home");
+        history.push("/home", { password });
       })
 
       .catch((err) => {
@@ -31,6 +36,7 @@ const ResetPass = () => {
         }
       });
   };
+
   return (
     <form className="LoginForm" onSubmit={handleUpdate}>
       <div className="wrapper fadeInDown">
@@ -54,14 +60,15 @@ const ResetPass = () => {
               onChange={handlePasswordOneChange}
               required
             ></input>
-            <label htmlFor="password">Confrim Password:</label>
+
+            {/* <label htmlFor="password">Confrim Password:</label>
             <input
               type="password"
               id="password"
-              value={password}
+              value={confirmPassword}
               onChange={handlePasswordTwoChange}
               required
-            ></input>
+            ></input> */}
             <br />
             <br />
             <br />

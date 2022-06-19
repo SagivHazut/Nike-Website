@@ -32,7 +32,6 @@ const SignupPage = React.lazy(() => import("./page/SignupPage"));
 function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
   const location = useLocation();
-
   const history = useHistory();
 
   const addItemToShoppingCart = (item) => {
@@ -108,20 +107,17 @@ function App() {
             component={Checkout}
             ShoppingCart={shoppingCart}
           />
-
           <AuthGuardRoute
             path="/womencardregister"
             component={WomenCardRegister}
           />
           <Route exact path="/women">
-            {" "}
             <WomenStore
               handleBuyButtonClick={addItemToShoppingCart}
               handleRemoveButtonClick={RemoveItemToShoppingCart}
             />
           </Route>
           <Route exact path="/men">
-            {" "}
             <MenStore
               handleBuyButtonClick={addItemToShoppingCart}
               handleRemoveButtonClick={RemoveItemToShoppingCart}
@@ -135,9 +131,14 @@ function App() {
           </Route>
           <Route path="/card/:id" component={CardInfoPage} />
           <Route path="/aboutpage" component={AboutPage} />
-          <Route path="/store" component={NikeStore} />
-          <AuthGuardRoute path="/CardUpdate" component={CardUpdate} />
 
+          <Route exact path="/store">
+            <NikeStore
+              handleBuyButtonClick={addItemToShoppingCart}
+              handleRemoveButtonClick={RemoveItemToShoppingCart}
+            />
+          </Route>
+          <AuthGuardRoute path="/CardUpdate" component={CardUpdate} />
           <Route path="*" component={NotFoundPage} />
         </Switch>
       </Suspense>

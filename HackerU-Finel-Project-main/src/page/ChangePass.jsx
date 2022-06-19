@@ -17,7 +17,7 @@ const ChangePass = () => {
     axios
       .get(`${URL}${email}`, { email })
       .then((res) => {
-        history.push("/home");
+        history.push("/home", toast.success("Email sent Successfully"));
       })
       .catch((err) => {
         toast.error(err.response.data);

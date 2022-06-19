@@ -1,18 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
+const UserModel = require("./Users/userModel");
+const bcrypt = require("../services/bcrypt");
 require("dotenv").config();
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "sagivhazut@gmail.com",
+    user: "hazutsagiv@gmail.com",
     pass: process.env.EMAIL_PASS,
   },
 });
 
 function getMailOptions(to) {
   return {
-    from: "sagivhazut@gmail.com",
+    from: "hazutsagiv@gmail.com",
     to: to,
     subject: "MyApp - Reset password",
     html: getPassResetLink(to),
@@ -37,19 +40,20 @@ router.get("/resetPassword", (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
+router.post("/updatepass", (req, res) => {
   let { email, newPass } = req.query;
-  createHash(newPass).then((hashedPass) => {
-    updateUserPassword(email, hashedPass)
+  bcrypt.createHash(newPass).then((hashedPass) => {
+    UserModel.updateUserPassword(email, hashedPass)
       .then((updateRes) => {
         res.statusCode = 200;
-        res.json({ msg: updateRes });
+        res.json({ updateRes });
       })
-      .catch((e) => {
+      .catch((err) => {
         res.statusCode = 500;
-        console.log(e);
-        res.json({ msg: "Error" });
+        console.log(err);
+        res.json({ err });
       });
   });
 });
+
 module.exports = router;

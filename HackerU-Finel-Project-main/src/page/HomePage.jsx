@@ -26,7 +26,7 @@ const HomePage = () => {
         <h1>
           JUST DO IT. <br /> Nike
         </h1>
-        <div class="video-container">
+        <div className="video-container">
           <video className="homevideoTag" autoPlay loop muted>
             <source src={bgchomevideo} type="video/mp4" />
           </video>

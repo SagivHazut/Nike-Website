@@ -92,10 +92,10 @@ export const ShoppingCartBox = (props) => {
                         width: "50%",
                         display: "flex",
                       }}
-                      color="inherit"
+                      color="default"
                     >
                       <IconButton
-                        color="inherit"
+                        color="default"
                         aria-label="Add to Cart"
                         onClick={() => {
                           handleRemoveButtonClick(item._id);

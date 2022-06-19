@@ -4,7 +4,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import CardUpdate from "./CardUpdate";
 import { NikeStore } from "./NikeStore";
-import { CardActions, IconButton, Badge, Button } from "@material-ui/core";
+import { CardActions, IconButton, Button } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
@@ -18,7 +18,7 @@ const MenStore = (props) => {
   const IsloggedInRedux = useSelector((state) => state.auth.loggedIn);
   const [userArr] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  // const [MenCollation] = useState(props.MenCollation);
+  const { handleBuyButtonClick, handleRemoveButtonClick } = props;
 
   useEffect(() => {
     axios
@@ -28,6 +28,7 @@ const MenStore = (props) => {
       })
       .catch((err) => {});
   }, []);
+
   let menCollation = cardsArr.filter((item) => {
     return item.MenCollation;
   });
@@ -55,7 +56,6 @@ const MenStore = (props) => {
       setCardsArr(newCardsArr);
     });
   };
-  const { handleBuyButtonClick, handleRemoveButtonClick } = props;
 
   return (
     <div>
@@ -154,10 +154,10 @@ const MenStore = (props) => {
                       width: "50%",
                       display: "flex",
                     }}
-                    color="inherit"
+                    color="secondary"
                   >
                     <IconButton
-                      color="inherit"
+                      color="secondary"
                       aria-label="Add to Cart"
                       onClick={() => {
                         handleRemoveButtonClick(item);
@@ -168,13 +168,12 @@ const MenStore = (props) => {
                     <IconButton
                       to="/cart"
                       aria-label="Show cart items"
-                      color="inherit"
+                      color="secondary"
                       className="cart"
                       onClick={() => {
                         handleBuyButtonClick(item);
                       }}
                     >
-                      <Badge badgeContent="" color="inherit"></Badge>
                       <AddShoppingCart />
                     </IconButton>
                   </CardActions>

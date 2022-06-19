@@ -1,10 +1,15 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import TextField from "@mui/material/TextField";
+import { CardActions, IconButton } from "@material-ui/core";
+import { AddShoppingCart } from "@material-ui/icons";
+import { RemoveShoppingCart } from "@material-ui/icons";
 
 export const NikeStore = (props) => {
   const [filter, setFilter] = useState("");
   const [cardsArr, setCardsArr] = useState([]);
+  const { handleBuyButtonClick, handleRemoveButtonClick } = props;
 
   const searchText = (event) => {
     setFilter(event.target.value);
@@ -20,10 +25,10 @@ export const NikeStore = (props) => {
 
   let dataSearch = cardsArr.filter((item) => {
     return (
-      item.name.toLowerCase() +
-      item.description.toLowerCase() +
-      item.phone
-    ).includes(filter.toLowerCase() || Number(filter));
+      (item.name.toLowerCase() + item.description.toLowerCase())
+        // + item.phone
+        .includes(filter.toLowerCase() || Number(filter))
+    );
   });
 
   return (
@@ -50,35 +55,60 @@ export const NikeStore = (props) => {
           </ul>
         </div>
       </nav>
-      <input
+      <TextField
+        style={{ width: "33%", margin: "1%" }}
+        id="demo-helper-text-misaligned-no-helper"
+        label="Search"
         className=" mr-sm-2"
         type="search"
-        placeholder="Search"
+        placeholder="Search..."
         aria-label="Search"
         value={filter}
         onChange={(e) => searchText(e)}
-        style={{
-          display: "flex",
-          margin: "0 auto",
-          textAlign: "center",
-          width: "33%",
-          height: "34px",
-          position: "relative",
-          marginLeft: "1%",
-        }}
       />
+
       <br />
       <div className="row justify-content-center">
-        {dataSearch.length === 0 && cardsArr.map((item) => {})}
         {dataSearch.map((item, index) => {
           return (
             <div key={index} className="col-11 col-md-6 col-lg-3 mx-0 mb-4">
               <div className="card p-0 overflow-hidden h-100 shadow">
-                <img src={item.image} className="card-img-top" />
+                <img src={item.image} className="card-img-top" alt="..." />
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>
-                  <p className="card-text">${item.phone}</p>
                   <p className="card-text">{item.description}</p>
+                  <p className="card-text">${item.phone}</p>
+                  <CardActions
+                    disableSpacing
+                    style={{
+                      justifyContent: "space-between",
+                      margin: "0 auto",
+                      width: "50%",
+                      display: "flex",
+                    }}
+                    color="secondary"
+                  >
+                    <IconButton
+                      color="secondary"
+                      aria-label="Add to Cart"
+                      onClick={() => {
+                        handleRemoveButtonClick(item);
+                      }}
+                    >
+                      <RemoveShoppingCart />
+                    </IconButton>
+                    <IconButton
+                      to="/cart"
+                      aria-label="Show cart items"
+                      color="secondary"
+                      className="cart"
+                      onClick={() => {
+                        handleBuyButtonClick(item);
+                      }}
+                    >
+                      <AddShoppingCart />
+                    </IconButton>
+                  </CardActions>
                 </div>
               </div>
             </div>

@@ -101,7 +101,7 @@ const CardRegister = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="exampleInputPhone1" className="form-label">
-              Phone
+              Price
             </label>{" "}
             <br />
             <input
