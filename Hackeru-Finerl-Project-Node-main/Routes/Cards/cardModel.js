@@ -58,7 +58,13 @@ const cardSchema = new mongoose.Schema({
     minlength: 7,
     maxlength: 7,
     unique: true,
-  }
+  },
+  MenCollation: {
+    type: String,
+  },
+  WomenCollation: {
+    type: String,
+  },
 });
 
 const Card = mongoose.model("Card", cardSchema);

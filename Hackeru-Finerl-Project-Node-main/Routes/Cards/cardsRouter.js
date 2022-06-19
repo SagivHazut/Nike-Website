@@ -25,8 +25,6 @@ router.get("/card/:id", async (req, res) => {
   try {
     const cardID = req.params.id;
     const card = await Card.findOne({ _id: cardID });
-    //const _id = req.params.id;
-    //const card = await Card.findOne({ _id });
     return res.send(card);
   } catch (error) {
     console.log(chalk.redBright(error.message));
@@ -60,9 +58,8 @@ router.get("/my-cards", auth, (req, res) => {
     .catch((error) => res.status(500).send(error.message));
 });
 
-
 /********** סעיף 10 **********/
-router.post("/Men", auth, async (req, res) => {
+router.post("/women", auth, async (req, res) => {
   try {
     const user = req.user;
     if (!user.biz) {
@@ -92,6 +89,7 @@ router.post("/Men", auth, async (req, res) => {
         ? card.image
         : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       userID: user._id,
+      WomenCollation: card.WomenCollation,
       bizNumber,
     };
 
@@ -103,7 +101,8 @@ router.post("/Men", auth, async (req, res) => {
     return res.status(500).send(error.message);
   }
 });
-router.post("/Women", auth, async (req, res) => {
+
+router.post("/men", auth, async (req, res) => {
   try {
     const user = req.user;
     if (!user.biz) {
@@ -132,6 +131,7 @@ router.post("/Women", auth, async (req, res) => {
       image1: card.image1
         ? card.image
         : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+      MenCollation: card.MenCollation,
       userID: user._id,
       bizNumber,
     };
@@ -144,6 +144,7 @@ router.post("/Women", auth, async (req, res) => {
     return res.status(500).send(error.message);
   }
 });
+
 /********** edit card **********/
 router.put("/:id", auth, async (req, res) => {
   try {
@@ -242,7 +243,5 @@ router.patch("/:id", auth, async (req, res) => {
     return res.status(500).send(error.message);
   }
 });
-
-
 
 module.exports = router;

@@ -16,6 +16,9 @@ const MenStore = (props) => {
   const userInfoRedux = useSelector((state) => state.auth.userData);
   const [cardsArr, setCardsArr] = useState([]);
   const IsloggedInRedux = useSelector((state) => state.auth.loggedIn);
+  const [userArr] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  // const [MenCollation] = useState(props.MenCollation);
 
   useEffect(() => {
     axios
@@ -25,9 +28,9 @@ const MenStore = (props) => {
       })
       .catch((err) => {});
   }, []);
-
-  const [userArr] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+  let menCollation = cardsArr.filter((item) => {
+    return item.MenCollation;
+  });
 
   const handleEditUser = (id) => {
     let newUser = userArr.find((item) => {
@@ -52,133 +55,131 @@ const MenStore = (props) => {
       setCardsArr(newCardsArr);
     });
   };
-  const {  handleBuyButtonClick, handleRemoveButtonClick } = props;
-  
+  const { handleBuyButtonClick, handleRemoveButtonClick } = props;
+
   return (
     <div>
-    <NikeStore
-     
-    ></NikeStore>
-    <br />
-    <br />
-    <br />
-    <div className="row row-cols-1 row-cols-md-5 g-5">
-      {cardsArr.map((item,index) => {
-        return (
-          <Fragment>
-      <div className="col">
-    <Carousel
-      className="main-slide"
-      interval={5000}
-      showStatus={false}
-      dynamicHeight={true}
-      showThumbs={false}
-      showArrows={false}
-      showIndicator={false}
-    >
-      <div className="image">
-        <img
-          style={{ textAlign: "center" }}
-          src={item.image}
-          className="card-img-top "
-          alt="..."
-        />
-      </div>
-      <div className="image">
-        <img
-          style={{ textAlign: "center" }}
-          src={item.image1}
-          className="card-img-top "
-          alt="..."
-        />
-      </div>
-      <div className="image">
-        <img
-          style={{ textAlign: "center" }}
-          src={item.image2}
-          className="card-img-top "
-          alt="..."
-        />
-      </div>
-      <div className="image">
-        <img
-          style={{ textAlign: "center" }}
-          src={item.image3}
-          className="card-img-top "
-          alt="..."
-        />
-      </div>
-    </Carousel>
-    <div style={{ textAlign: "center" }} className="card-body ">
-      <h5 style={{ textAlign: "center" }} className="card-title">
-        {item.name}
-      </h5>
+      <NikeStore></NikeStore>
+      <br />
+      <br />
+      <br />
+      <div className="row row-cols-1 row-cols-md-5 g-5">
+        {menCollation.map((item, index) => {
+          return (
+            <Fragment>
+              <div className="col">
+                <Carousel
+                  className="main-slide"
+                  interval={5000}
+                  showStatus={false}
+                  dynamicHeight={true}
+                  showThumbs={false}
+                  showArrows={false}
+                  showIndicator={false}
+                >
+                  <div className="image">
+                    <img
+                      style={{ textAlign: "center" }}
+                      src={item.image}
+                      className="card-img-top "
+                      alt="..."
+                    />
+                  </div>
+                  <div className="image">
+                    <img
+                      style={{ textAlign: "center" }}
+                      src={item.image1}
+                      className="card-img-top "
+                      alt="..."
+                    />
+                  </div>
+                  <div className="image">
+                    <img
+                      style={{ textAlign: "center" }}
+                      src={item.image2}
+                      className="card-img-top "
+                      alt="..."
+                    />
+                  </div>
+                  <div className="image">
+                    <img
+                      style={{ textAlign: "center" }}
+                      src={item.image3}
+                      className="card-img-top "
+                      alt="..."
+                    />
+                  </div>
+                </Carousel>
+                <div style={{ textAlign: "center" }} className="card-body ">
+                  <h5 style={{ textAlign: "center" }} className="card-title">
+                    {item.name}
+                  </h5>
 
-      <h6
-        style={{ textAlign: "center" }}
-        className="card-subtitle mb-2 font-bolder"
-      >
-        ${item.phone}
-      </h6>
-    </div>
-    {props.userIDCard === props.userIDLoggedIn && IsloggedInRedux === true ? (
-      <div
-        style={{ justifyContent: "space-between", display: "flex" }}
-        className="card-footer"
-      >
-        <Button
-          variant="outlined"
-          color="error"
-          type="button"
-          className="btn btn-outline-primary"
-          onClick={handleEditUser}
-        >
-          Edit
-        </Button>
-        <Button
-          type="button"
-          className="btn btn-outline-danger"
-          onClick={() => handleDeleteCard(item._id)}
-
-        >
-          Delete
-        </Button>
-      </div>
-    ) : (
-      <CardActions
-        disableSpacing
-        style={{
-          justifyContent: "space-between",
-          margin: "0 auto",
-          width: "50%",
-          display: "flex",
-        }}
-        color="inherit"
-      >
-        <IconButton
-          color="inherit"
-          aria-label="Add to Cart"
-          onClick={() => {
-            handleRemoveButtonClick(item);
-          }}
-        >
-          <RemoveShoppingCart />
-        </IconButton>
-        <IconButton
-          to="/cart"
-          aria-label="Show cart items"
-          color="inherit"
-          className="cart"
-          onClick={() => {
-            handleBuyButtonClick(item);
-          }}
-        >
-          <Badge badgeContent="" color="inherit"></Badge>
-          <AddShoppingCart />
-        </IconButton>
-      </CardActions>
-    )}
-  </div>
+                  <h6
+                    style={{ textAlign: "center" }}
+                    className="card-subtitle mb-2 font-bolder"
+                  >
+                    ${item.phone}
+                  </h6>
+                </div>
+                {props.userIDCard === props.userIDLoggedIn &&
+                IsloggedInRedux === true ? (
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                    className="card-footer"
+                  >
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      type="button"
+                      className="btn btn-outline-primary"
+                      onClick={handleEditUser}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      type="button"
+                      className="btn btn-outline-danger"
+                      onClick={() => handleDeleteCard(item._id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                ) : (
+                  <CardActions
+                    disableSpacing
+                    style={{
+                      justifyContent: "space-between",
+                      margin: "0 auto",
+                      width: "50%",
+                      display: "flex",
+                    }}
+                    color="inherit"
+                  >
+                    <IconButton
+                      color="inherit"
+                      aria-label="Add to Cart"
+                      onClick={() => {
+                        handleRemoveButtonClick(item);
+                      }}
+                    >
+                      <RemoveShoppingCart />
+                    </IconButton>
+                    <IconButton
+                      to="/cart"
+                      aria-label="Show cart items"
+                      color="inherit"
+                      className="cart"
+                      onClick={() => {
+                        handleBuyButtonClick(item);
+                      }}
+                    >
+                      <Badge badgeContent="" color="inherit"></Badge>
+                      <AddShoppingCart />
+                    </IconButton>
+                  </CardActions>
+                )}
+              </div>
 
               {userInfoRedux._id === item.userID &&
               IsloggedInRedux === true &&

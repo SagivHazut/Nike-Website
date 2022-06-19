@@ -38,7 +38,7 @@ const CardsPanelPage = (props) => {
   };
 
   const handleUpdateUser = (id) => {
-    let newCardsArr = cardsArr.filter((item) => item._id !== id);
+    let newCardsArr = cardsArr.filter((item) => item!== item._id);
     setCardsArr(newCardsArr);
     axios.get("/cards/allCards").then(({ data }) => {
       setCardsArr(data);

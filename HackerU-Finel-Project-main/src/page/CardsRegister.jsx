@@ -13,6 +13,7 @@ const CardRegister = () => {
   const [image1, setImage1] = useState();
   const [image2, setImage2] = useState();
   const [image3, setImage3] = useState();
+  const [MenCollation, setMenCollation] = useState("MenCollation");
 
   const handleNameChange = (ev) => {
     setName(ev.target.value);
@@ -35,11 +36,13 @@ const CardRegister = () => {
   const handleImageChange3 = (ev) => {
     setImage3(ev.target.value);
   };
-
+  const handleMenCollationChange = (ev) => {
+    setMenCollation(ev.target.value);
+  };
   const handleSignup = (ev) => {
     ev.preventDefault();
     axios
-      .post("/cards/Men", {
+      .post("/cards/men", {
         name,
         description,
         phone,
@@ -47,9 +50,10 @@ const CardRegister = () => {
         image1,
         image2,
         image3,
+        MenCollation,
       })
       .then((res) => {
-        history.push("/men", { description, phone });
+        history.push("/men", { description, phone, MenCollation });
       })
       .catch((err) => {
         toast.error(err.response.data);
@@ -164,7 +168,20 @@ const CardRegister = () => {
               required
             />
           </div>
-
+          <div className="mb-3" style={{ display: "none" }}>
+            <label htmlFor="exampleInputWomenCollation" className="form-label">
+              Collations
+            </label>
+            <br />
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputWomenCollation"
+              onChange={(event) => handleMenCollationChange(event.target.value)}
+              value={MenCollation}
+              required
+            />
+          </div>
           <button type="submit" className="btn btn-danger">
             Create a New Card
           </button>

@@ -18,10 +18,12 @@
   height: 50vh;
   margin-top: 5%;
   display: block;
+  font-weight: 500;
 }
 .aboutnike h1 {
   font-family: "Beau Rivage", cursive;
   font-family: "Roboto", sans-serif;
+  font-weight: 600;
 }
 
 @keyframes textclip {
@@ -32,7 +34,7 @@
 .innvoation hr {
   width: 40%;
   margin: 0 auto;
-  color: red;
+  color: #5f5e61;
   border: 1px solid;
 }
 .innvoation {
@@ -45,11 +47,13 @@
 }
 .innvoation h2 {
   margin: 0 auto;
+  font-weight: 600;
+
 }
 .innvoation img {
   width: 40%;
   height: 65%;
-  box-shadow: 20px 20px 20px 20px #ff1361;
+  box-shadow: 20px 20px 20px 20px #c5c693;
   margin-left: -15%;
   margin-top: -35%;
 }
@@ -60,8 +64,12 @@
   height: 30%;
   position: relative;
   font-size: 1.4rem;
+  font-weight: 500;
 }
+h5{
+  font-weight: 500;
 
+}
 .innvoation {
   animation: fadeIn 10s;
   -webkit-animation: fadeIn 5s;
@@ -73,8 +81,9 @@
 .social hr {
   width: 40%;
   margin: 0 auto;
-  color: red;
+  color: #5f5e61;
   border: 1px solid;
+
 }
 .social {
   text-align: left;
@@ -82,17 +91,19 @@
   margin-left: 20%;
   display: block;
   height: 100vh;
-  margin-top: 5%;
+  margin-top: -10%;
 }
 .social h2 {
   margin: 0 auto;
+  font-weight: 600;
+
 }
 .social img {
   width: 40%;
   height: 65%;
-  box-shadow: 20px 20px 20px 20px #ff1361;
+  box-shadow: 20px 20px 20px 20px #c5c693;
   margin-left: -15%;
-  margin-top: -35%;
+  margin-top: -45%;
 }
 .paragraph {
   margin: 0 auto;
@@ -101,7 +112,8 @@
   height: 30%;
   position: relative;
   font-size: 1.4rem;
-  
+  font-weight: 500;
+
 }
 
 .social {
@@ -114,7 +126,7 @@
 .our-team hr {
   width: 40%;
   margin: 0 auto;
-  color: red;
+  color: #5f5e61;
   border: 1px solid;
   margin-right: 45%;
 }
@@ -124,17 +136,18 @@
   margin-right: 15%;
   display: block;
   height: 100vh;
-  margin-top: 5%;
 }
 .our-team h2 {
   margin: 0 auto;
   margin-right: 50%;
+  font-weight: 600;
+
 }
 .our-team img {
   width: 40%;
   height: 65%;
-  box-shadow: 20px 20px 20px 20px #ff1361;
-  margin-top: -35%;
+  box-shadow: 20px 20px 20px 20px #c5c693;
+  margin-top: -50%;
   margin-right: -10%;
 }
 .paragraph1 {
@@ -145,6 +158,8 @@
   height: 30%;
   position: relative;
   font-size: 1.4rem;
+  font-weight: 500;
+
 }
 
 .our-team {
@@ -236,6 +251,8 @@
   }
   .our-team h2 {
     margin: 0 auto;
+    font-weight: 600;
+
   }
   .our-team hr {
     margin: 0 auto;

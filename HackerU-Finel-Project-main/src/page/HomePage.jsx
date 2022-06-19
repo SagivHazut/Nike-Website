@@ -105,33 +105,6 @@ const HomePage = () => {
         </div>
       </div>
       <br />
-      {/* <div className="colliction">
-        <div className="women">
-          <p>Women Collection</p>
-          <NavLink
-            className="nav-link "
-            aria-current="page"
-            to="/women"
-            activeClassName="activeLink"
-          >
-            <img src={nikelink} alt="" />
-          </NavLink>
-        </div>
-        <img src={womenrun} alt="" />
-
-        <img src={menrun} alt="" />
-        <div className="men">
-          <p>Men Collection</p>
-          <NavLink
-            className="nav-link "
-            aria-current="page"
-            to="/men"
-            activeClassName="activeLink"
-          >
-            <img src={nikelink} alt="" />
-          </NavLink>
-        </div>
-              </div> */}
       <div className="imagesfirstrow">
         <div className="nikecontainer">
           <img src={womenrun} alt="" className="NikeImage"></img>
@@ -142,7 +115,7 @@ const HomePage = () => {
               <NavLink
                 className="nav-links"
                 aria-current="page"
-                to="/products"
+                to="/women"
                 activeClassName="activeLink"
               >
                 <img src={nikelink} alt="" className="nikeLogoStore" />
@@ -159,7 +132,7 @@ const HomePage = () => {
               <NavLink
                 className="nav-links"
                 aria-current="page"
-                to="/products"
+                to="/men"
                 activeClassName="activeLink"
               >
                 <img src={nikelink} alt="" className="nikeLogoStore" />

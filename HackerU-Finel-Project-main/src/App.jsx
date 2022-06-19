@@ -42,10 +42,9 @@ function App() {
     setShoppingCart(currentShoppingCart);
   };
 
-  const RemoveItemToShoppingCart = (item) => {
+  const RemoveItemToShoppingCart = (index) => {
     const currentShoppingCart = [...shoppingCart];
-
-    currentShoppingCart.pop(item);
+    currentShoppingCart.splice(index, 1);
     setShoppingCart(currentShoppingCart);
   };
 
@@ -84,6 +83,8 @@ function App() {
             <ShoppingCartBox
               clearShoppingCart={clearShoppingCart}
               ShoppingCart={shoppingCart}
+              handleBuyButtonClick={addItemToShoppingCart}
+              handleRemoveButtonClick={RemoveItemToShoppingCart}
             />
           )}
         </Box>
@@ -102,12 +103,12 @@ function App() {
           <AuthRegister path="/login" component={LoginPage} />
           <AuthRegister path="/signup" component={SignupPage} />
           <AuthGuardRoute path="/cardregister" component={CardRegister} />
-          {/* <AuthGuardRoute path="/checkout" component={Checkout} /> */}
-          <Route
+          <AuthGuardRoute
             path="/checkout"
             component={Checkout}
             ShoppingCart={shoppingCart}
           />
+
           <AuthGuardRoute
             path="/womencardregister"
             component={WomenCardRegister}

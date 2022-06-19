@@ -10,11 +10,15 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  CardActions,
+  IconButton,
 } from "@mui/material";
+import { RemoveShoppingCart } from "@material-ui/icons";
+
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export const ShoppingCartBox = (props) => {
-  const { ShoppingCart, clearShoppingCart } = props;
+  const { ShoppingCart, clearShoppingCart, handleRemoveButtonClick } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const itemsPrice = ShoppingCart.reduce((a, c) => a + 1 * c.phone, 0);
@@ -60,7 +64,7 @@ export const ShoppingCartBox = (props) => {
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
             <TableBody>
-              {ShoppingCart.map((props, index) => (
+              {ShoppingCart.map((props, index, item) => (
                 <TableRow
                   key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -79,6 +83,28 @@ export const ShoppingCartBox = (props) => {
                     {props.name}
                   </TableCell>
                   <TableCell align="right">${props.phone}</TableCell>
+                  <TableCell>
+                    <CardActions
+                      disableSpacing
+                      style={{
+                        justifyContent: "space-between",
+                        margin: "0 auto",
+                        width: "50%",
+                        display: "flex",
+                      }}
+                      color="inherit"
+                    >
+                      <IconButton
+                        color="inherit"
+                        aria-label="Add to Cart"
+                        onClick={() => {
+                          handleRemoveButtonClick(item._id);
+                        }}
+                      >
+                        <RemoveShoppingCart />
+                      </IconButton>
+                    </CardActions>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

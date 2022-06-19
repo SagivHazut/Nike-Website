@@ -8,7 +8,6 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Grid,
 } from "@mui/material";
 
 const Checkout = (props) => {
