@@ -30,19 +30,5 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-const updateUserPassword = async (email, newPass) => {
-  return await new Promise((success, failure) => {
-    try {
-      User.findOneAndUpdate({ email: email }, { password: newPass })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((e) => console.log(e));
-      success("Successfully changed pass");
-    } catch (e) {
-      failure(e);
-    }
-  });
-};
 
-module.exports = { updateUserPassword, User };
+module.exports = User;

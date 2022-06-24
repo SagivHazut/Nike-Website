@@ -119,6 +119,7 @@ const CardsPanelPage = (props) => {
                   </h6>
                 </div>
                 {props.userIDCard === props.userIDLoggedIn &&
+                userInfoRedux.biz === true &&
                 IsloggedInRedux === true ? (
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
@@ -194,7 +195,7 @@ const CardsPanelPage = (props) => {
           );
         })}
       </div>
-      {userInfoRedux.biz === true && (
+      {userInfoRedux.biz === true && IsloggedInRedux === true && (
         <button
           style={{
             display: "flex",

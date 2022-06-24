@@ -26,7 +26,7 @@ function getPassResetLink(to) {
   return `<a href='http://localhost:3000/resetpassword?email=${to}'>Rest password</a>`;
 }
 
-router.get("/resetPassword", (req, res) => {
+router.get("/2345", (req, res) => {
   let { email } = req.query;
   let options = getMailOptions(email);
   transporter.sendMail(options, (err, info) => {
@@ -37,36 +37,6 @@ router.get("/resetPassword", (req, res) => {
       res.statusCode = 200;
       res.json(info);
     }
-  });
-});
-const updateUserPassword = async (email, newPass) => {
-  return await new Promise((success, failure) => {
-    try {
-      User.findOneAndUpdate({ email: email }, { password: newPass })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((e) => console.log(e));
-      success("Successfully changed pass");
-    } catch (e) {
-      failure(e);
-    }
-  });
-};
-
-router.post("/updatepass", (req, res) => {
-  let { email, newPass } = req.query;
-  bcrypt.createHash(newPass).then((hashedPass) => {
-    updateUserPassword(email, hashedPass)
-      .then((updateRes) => {
-        res.statusCode = 200;
-        res.json({ updateRes });
-      })
-      .catch((err) => {
-        res.statusCode = 500;
-        console.log(err);
-        res.json({ err });
-      });
   });
 });
 

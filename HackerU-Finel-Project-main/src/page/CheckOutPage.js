@@ -21,26 +21,28 @@ const Checkout = (props) => {
   }, []);
 
   return (
-    <div className="checkout">
+    <div className="checkout ">
       <section className="py-5 text-center ">
-        <div className="container">
-          <div className="d-flex flex-row-reverse  ">
-            <ul class="list-group mb-10 sticky-top">
+        <div className="container  ">
+          <div className="flex-row-reverse checkoutone ">
+            <ul className="list-group mb-10 col-sticky-top ">
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column ",
                   position: "sticky",
                   top: 0,
+                  maxwidth: 500,
+                  minWidth: 300,
                 }}
               >
-                <Box sx={{ mt: 1.3, ml: 4, width: 400 }}>
+                <Box sx={{ mt: 1.3, ml: 4 }}>
                   <Badge badgeContent={shoppingCart.length} color="primary">
                     <h3>Cart</h3>
                   </Badge>
                   <TableContainer component={Paper}>
                     <Table
-                      sx={{ minWidth: 250 }}
+                      sx={{ maxwidth: 400 }}
                       size="small"
                       aria-label="a dense table"
                     >
@@ -75,11 +77,7 @@ const Checkout = (props) => {
                       </TableBody>
                     </Table>
                   </TableContainer>
-                  <Table
-                    sx={{ minWidth: 150 }}
-                    size="small"
-                    aria-label="a dense table"
-                  >
+                  <Table size="small" aria-label="a dense table">
                     <TableBody>
                       <TableRow
                         sx={{
@@ -97,9 +95,9 @@ const Checkout = (props) => {
                 </Box>
               </Box>
             </ul>
-            <div className="col-md-8 order-md-1 ">
+            <div className="col-md-8 order-md-1 col-sx-8 card p-2">
               <h4 className="mb-3">Billing address</h4>
-              <form className="needs-validation" noValidate>
+              <form className="needs-validation" novalidate="">
                 <div className="row">
                   <div className="col-md-6 mb-3">
                     <label htmlFor="firstName" className="form-label">

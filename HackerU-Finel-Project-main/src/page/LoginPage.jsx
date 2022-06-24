@@ -59,7 +59,7 @@ const LoginPage = () => {
             if (location.state.fromPage) {
               history.push(location.state.fromPage);
             } else {
-              history.push("/store");
+              history.push("/CardsPanelPage");
             }
           }
         })
