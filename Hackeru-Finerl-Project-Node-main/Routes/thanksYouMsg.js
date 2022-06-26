@@ -17,16 +17,19 @@ function getMailOptions(to) {
   return {
     from: "hazutsagiv@gmail.com",
     to: to,
-    subject: "MyApp - Reset password",
+    subject: "Thank you for buying from us!",
     html: getPassResetLink(to),
   };
 }
 
-function getPassResetLink(to) {
-  return `<a href='http://localhost:3000/resetpassword?email=${to}'>Rest password</a>`;
+function getPassResetLink() {
+  return `<h1>Thanks for being a great customer!</h1>
+  <h4>Your order is on the way</h4>
+  
+  `;
 }
 
-router.get("/2345", (req, res) => {
+router.get("/payments", (req, res) => {
   let { email } = req.query;
   let options = getMailOptions(email);
   transporter.sendMail(options, (err, info) => {

@@ -61,14 +61,6 @@ const ResetPass = (props) => {
               required
             ></input>
 
-            {/* <label htmlFor="password">Confrim Password:</label>
-            <input
-              type="password"
-              id="password"
-              value={confirmPassword}
-              onChange={handlePasswordTwoChange}
-              required
-            ></input> */}
             <br />
             <br />
             <br />

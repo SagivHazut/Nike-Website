@@ -9,10 +9,17 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const Checkout = (props) => {
   const [shoppingCart, setShoppingCart] = useState([]);
-
+  const [email, setEmail] = useState("");
+  const history = useHistory();
+  const URL = "http://localhost:8181/payments?email=";
   const itemsPrice = shoppingCart.reduce((a, c) => a + 1 * c.phone, 0);
 
   useEffect(() => {
@@ -20,8 +27,102 @@ const Checkout = (props) => {
     setShoppingCart(JSON.parse(product));
   }, []);
 
+  const handleEmailChange = (ev) => {
+    setEmail(ev.target.value);
+  };
+
+  const Submit = async (ev) => {
+    ev.preventDefault();
+    handleSubmit();
+    axios
+      .get(`${URL}${email}`, { email })
+      .then((res) => {
+        history.push("/home", toast.success("Email sent Successfully"));
+      })
+      .catch((err) => {
+        toast.error(err.response.data);
+        if (err.response) {
+        }
+      });
+  };
+
+  function validate(values) {
+    const errors = {};
+
+    if (!values.firstname) {
+      errors.firstname = "Required";
+    } else if (!/^[a-z ,.'-]+$/i.test(values.firstname)) {
+      errors.firstname = "Invalid first name address";
+    }
+
+    if (!values.lastname) {
+      errors.lastname = "Required";
+    } else if (!/^[a-z ,.'-]+$/i.test(values.lastname)) {
+      errors.lastname = "Invalid last name address";
+    }
+
+    if (!values.email) {
+      errors.email = "Required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email address";
+    }
+    if (!values.address) {
+      errors.address = "Required";
+    }
+
+    if (!values.zip) {
+      errors.zip = "Required";
+    } else if (!/^\d{5}[-\s]?(?:\d{4})?$/i.test(values.zip)) {
+      errors.zip = "Invalid zip address";
+    }
+
+    if (!values.card) {
+      errors.card = "Required";
+    } else if (!/^[a-z ,.'-]+$/i.test(values.card)) {
+      errors.card = "Invalid card address";
+    }
+
+    if (!values.cardnumber) {
+      errors.cardnumber = "Required";
+    } else if (!/^([0-9]{12}[0-9]{3})$/i.test(values.cardnumber)) {
+      errors.cardnumber = "Invalid Cardit card number address";
+    }
+
+    if (!values.expiration) {
+      errors.expiration = "Required";
+    }
+
+    if (!values.CVV) {
+      errors.CVV = "Required";
+    } else if (!/([0-9]{3})/i.test(values.CVV)) {
+      errors.CVV = "Invalid CVV number address";
+    }
+
+    return errors;
+  }
+
+  const { handleSubmit, handleChange, handleBlur, touched, errors } = useFormik(
+    {
+      initialValues: {
+        firstname: Yup.string().required("Required"),
+        lastname: "",
+        address: "",
+        country: "",
+        state: "",
+        zip: "",
+        card: "",
+        cardnumber: "",
+        expiration: "",
+        CVV: "",
+      },
+      validate,
+    }
+  );
+
   return (
-    <div className="checkout ">
+    <div className="checkout " onSubmit={Submit}>
       <section className="py-5 text-center ">
         <div className="container  ">
           <div className="flex-row-reverse checkoutone ">
@@ -100,34 +201,39 @@ const Checkout = (props) => {
               <form className="needs-validation" novalidate="">
                 <div className="row">
                   <div className="col-md-6 mb-3">
-                    <label htmlFor="firstName" className="form-label">
+                    <label htmlFor="firstname" className="form-label">
                       First name
                     </label>
                     <input
                       type="text"
-                      className="form-control"
-                      id="firstName"
-                      placeholder="First Name"
-                      required
-                    />
-                    <div className="invalid-feedback">
-                      Valid first name is required.
-                    </div>
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label for="lastName" className="form-label">
-                      Last name
-                    </label>
-                    <input
-                      type="text"
+                      name="firstname"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                       className="form-control"
                       id="lastName"
                       placeholder="Last Name"
                       required
                     />
-                    <div className="invalid-feedback">
-                      Valid last name is required.
-                    </div>
+                    {touched.firstname && errors.firstname ? (
+                      <div style={{ color: "red" }}>First Name is Required</div>
+                    ) : null}
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="lastname" className="form-label">
+                      Last name
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="lastname"
+                      placeholder="Last Name"
+                      name="lastname"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {touched.lastname && errors.lastname ? (
+                      <div style={{ color: "red" }}> Last Name is Required</div>
+                    ) : null}
                   </div>
                 </div>
 
@@ -140,11 +246,9 @@ const Checkout = (props) => {
                     className="form-control"
                     id="email"
                     placeholder="you@example.com"
-                    required
+                    value={email}
+                    onChange={handleEmailChange}
                   />
-                  <div className="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                  </div>
                 </div>
 
                 <div className="mb-3">
@@ -157,10 +261,13 @@ const Checkout = (props) => {
                     id="address"
                     placeholder="1234 Main St"
                     required
+                    name="address"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
-                  <div className="invalid-feedback">
-                    Please enter your shipping address.
-                  </div>
+                  {touched.address && errors.address ? (
+                    <div style={{ color: "red" }}>Address is Required</div>
+                  ) : null}
                 </div>
 
                 <div className="row">
@@ -168,12 +275,7 @@ const Checkout = (props) => {
                     <label htmlFor="country" className="form-label">
                       Country
                     </label>
-                    <select
-                      className="form-select d-block w-100"
-                      id="country"
-                      required
-                    >
-                      <option value="">Choose...</option>
+                    <select className="form-select d-block w-100" id="country">
                       <option>United States</option>
                     </select>
                     <div className="invalid-feedback">
@@ -249,35 +351,17 @@ const Checkout = (props) => {
                       Zip
                     </label>
                     <input
-                      type="number"
                       className="form-control"
                       id="zip"
-                      placeholder=""
-                      required
+                      placeholder="Zip Code"
+                      name="zip"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                    <div className="invalid-feedback">Zip code required.</div>
+                    {touched.zip && errors.zip ? (
+                      <div style={{ color: "red" }}>Zip Code is Required</div>
+                    ) : null}{" "}
                   </div>
-                </div>
-                <hr className="mb-4" />
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="same-address"
-                  />
-                  <label className="form-check-label" htmlFor="same-address">
-                    Shipping address is the same as my billing address
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="save-info"
-                  />
-                  <label className="form-check-label" htmlFor="save-info">
-                    Save this information for next time
-                  </label>
                 </div>
                 <hr className="mb-4" />
 
@@ -293,7 +377,7 @@ const Checkout = (props) => {
                       checked
                       required
                     />
-                    <label className="form-check-label" htmlFor="credit">
+                    <label className="form-check-label" htmlFor="card">
                       Credit card
                     </label>
                   </div>
@@ -303,8 +387,8 @@ const Checkout = (props) => {
                       name="paymentMethod"
                       type="radio"
                       className="form-check-input"
-                      required
                     />
+
                     <label className="form-check-label" htmlFor="debit">
                       Debit card
                     </label>
@@ -319,14 +403,16 @@ const Checkout = (props) => {
                       type="text"
                       className="form-control"
                       id="cc-name"
-                      placeholder=""
-                      required
+                      placeholder="Full name as displayed on card
+                      "
+                      name="card"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
+                    {touched.card && errors.card ? (
+                      <div style={{ color: "red" }}>Card Name is Required</div>
+                    ) : null}{" "}
                     <br />
-                    <small className="text-muted">
-                      Full name as displayed on card
-                    </small>
-
                     <div className="invalid-feedback">
                       Name on card is required
                     </div>
@@ -336,15 +422,19 @@ const Checkout = (props) => {
                       Credit card number
                     </label>
                     <input
-                      type="number"
+                      type="password"
                       className="form-control"
                       id="cc-number"
                       placeholder=""
-                      required
+                      name="cardnumber"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                    <div className="invalid-feedback">
-                      Credit card number is required
-                    </div>
+                    {touched.cardnumber && errors.cardnumber ? (
+                      <div style={{ color: "red" }}>
+                        Card Number is Required
+                      </div>
+                    ) : null}{" "}
                   </div>
                 </div>
                 <div className="row">
@@ -357,11 +447,16 @@ const Checkout = (props) => {
                       className="form-control"
                       id="cc-expiration"
                       placeholder=""
-                      required
+                      name="expiration"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                    <div className="invalid-feedback">
-                      Expiration date required
-                    </div>
+                    {touched.expiration && errors.expiration ? (
+                      <div style={{ color: "red" }}>
+                        {" "}
+                        Expiration date required
+                      </div>
+                    ) : null}{" "}
                   </div>
                   <div className="col-md-3 mb-3">
                     <label htmlFor="cc-expiration" className="form-label">
@@ -372,17 +467,22 @@ const Checkout = (props) => {
                       className="form-control"
                       id="cc-cvv"
                       placeholder=""
-                      required
+                      name="CVV"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                    <div className="invalid-feedback">
-                      Security code required
-                    </div>
+                    {touched.CVV && errors.CVV ? (
+                      <div style={{ color: "red" }}>
+                        {" "}
+                        Security code required
+                      </div>
+                    ) : null}{" "}
                   </div>
                 </div>
                 <hr className="mb-4" />
                 <button
                   className="btn btn-dark px-4 rounded-pill"
-                  type="button"
+                  type="submit"
                 >
                   Place Order
                 </button>
