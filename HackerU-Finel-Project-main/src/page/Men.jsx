@@ -56,11 +56,51 @@ const MenStore = (props) => {
       setCardsArr(newCardsArr);
     });
   };
-
+  function itemSortHtL() {
+    const parsePrice = (x) => parseFloat(x.replace(/^\$/, "")) || 0;
+    const sortedStudios = cardsArr
+      .slice()
+      .sort((a, b) => parsePrice(b.phone) - parsePrice(a.phone));
+    setCardsArr(sortedStudios);
+  }
+  function itemSortLtH() {
+    const parsePrice = (x) => parseFloat(x.replace(/^\$/, "")) || 0;
+    const sortedStudios = cardsArr
+      .slice()
+      .sort((a, b) => parsePrice(a.phone) - parsePrice(b.phone));
+    setCardsArr(sortedStudios);
+  }
   return (
     <div>
       <NikeStore></NikeStore>
-      <br />
+      <div style={{ marginLeft: "2%" }}>
+        <h4>Sort by:</h4>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault1"
+            onClick={itemSortHtL}
+          />
+          <label class="form-check-label" for="flexRadioDefault1">
+            {" "}
+            Price(High-Low)
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2"
+            onClick={itemSortLtH}
+          />
+          <label class="form-check-label" for="flexRadioDefault2">
+            Price(Low-High)
+          </label>
+        </div>
+      </div>
       <br />
       <br />
       <div className="row row-cols-1 row-cols-md-5 g-5">
