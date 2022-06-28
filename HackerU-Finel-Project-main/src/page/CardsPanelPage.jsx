@@ -249,7 +249,6 @@ const CardsPanelPage = (props) => {
           Add a New Card
         </button>
       )}
-      {/* <Basket onAddToCart={handleAddToCart} cartItems={cartItems}></Basket> */}
     </div>
   );
 };

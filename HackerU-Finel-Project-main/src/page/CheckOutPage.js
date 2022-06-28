@@ -30,15 +30,19 @@ const Checkout = (props) => {
   const handleEmailChange = (ev) => {
     setEmail(ev.target.value);
   };
-
+  const clearShoppingCart = () => {
+    window.localStorage.clear("product");
+  };
   const Submit = async (ev) => {
     ev.preventDefault();
     handleSubmit();
+
     axios
       .get(`${URL}${email}`, { email })
       .then((res) => {
         history.push("/home", toast.success("Email sent Successfully"));
-      })
+      }, clearShoppingCart())
+
       .catch((err) => {
         toast.error(err.response.data);
         if (err.response) {
@@ -239,9 +243,10 @@ const Checkout = (props) => {
 
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
-                    Email{" "}
+                    Email
                   </label>
                   <input
+                    required
                     type="email"
                     className="form-control"
                     id="email"
